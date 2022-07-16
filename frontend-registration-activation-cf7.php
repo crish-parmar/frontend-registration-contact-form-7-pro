@@ -8,7 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 add_action('admin_enqueue_scripts', 'callback_frcf7_setting_up_scripts');
 function callback_frcf7_setting_up_scripts() {
-    if($_GET['page']=='wpcf7'){
+
+    if(isset($_GET['page']) && $_GET['page']=='wpcf7') {
         wp_enqueue_style('frcf7css', frcf7_plugin_url('/css/style.css'), array(), FRCF7_VERSION,'all');
     }
 }
@@ -16,7 +17,7 @@ function callback_frcf7_setting_up_scripts() {
 add_action( 'init', 'activate_au' );
 function activate_au()
 {
-    $plugin_current_version = '4.6';
+    $plugin_current_version = '4.6.1';
     $plugin_remote_path = 'http://www.wpbuilderweb.com/plugin/updates/cf7freg.php'; 
     $plugin_slug = FRCF7_PLUGIN_BASENAME;
     new WP_fra_AutoUpdate( $plugin_current_version, $plugin_remote_path, $plugin_slug );    

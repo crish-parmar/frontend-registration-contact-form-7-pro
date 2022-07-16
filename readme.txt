@@ -3,12 +3,12 @@ Contributors: pokornydavid
 Tags: Contact Form 7, form, forms, contactform7, contact form, submit, Password, Contact Forms 7, Contact Form 7 + Registration,Contact Forms, contacted, contacts, integrate Frontend Registration with contact form 7,woocommerce, Change Contact Form 7 in Registration form , signup form
 Donate link: http://#/payment/
 Requires at least: 3.0.1
-Tested up to: 5.4.2
-Stable tag: 4.6
+Tested up to: 6.0.x
+Stable tag: 4.6.1
 License: GPLv3 or later License
 Contact Form 7 requires at least: 3.0
-Contact Form 7 tested up to: 5.1.x
-Version: 4.6
+Contact Form 7 tested up to: 5.6.x
+Version: 4.6.1
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Contact Form 7 - Frontend Registration Form.
@@ -93,3 +93,6 @@ Solved Activation link issue and update issue.
 
 = 4.6 =
 Add New Feature of Auto Login and redirect on Home Page.
+
+= 4.6.1 =
+Bug Fix
