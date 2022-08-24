@@ -65,7 +65,7 @@ function filterarray()
 }
 function wpcf7_password_field_shortcode_handler( $tag ) {
     //$passwordfield = get_post_meta($post_id, "_cf7fr_passwordfield_registration", true);  
-    $tag = new WPCF7_Shortcode( $tag ); 
+    $tag = new WPCF7_FormTag( $tag ); 
     $class = wpcf7_form_controls_class( $tag->type );   
     $validation_error = wpcf7_get_validation_error( $tag->name );
     if ( $validation_error ) {
