@@ -64,7 +64,7 @@ function filterarray()
     return $updatedResult;  
 }
 function wpcf7_password_field_shortcode_handler( $tag ) {
-    //$passwordfield = get_post_meta($post_id, "_cf7fr_passwordfield_registration", true);  
+    
     $tag = new WPCF7_FormTag( $tag ); 
     $class = wpcf7_form_controls_class( $tag->type );   
     $validation_error = wpcf7_get_validation_error( $tag->name );
@@ -113,10 +113,15 @@ Admin Section of Password Field
 /* Tag generator */
 add_action( 'admin_init', 'wpcf7_add_tag_generator_password_field', 55 );
 function wpcf7_add_tag_generator_password_field() { 
-    if(class_exists('WPCF7_TagGenerator')){
-        $tag_generator = WPCF7_TagGenerator::get_instance();
-        $tag_generator->add( 'password', __( 'Password*', 'contact-form-7-freg' ),
-        'wpcf7_tg_pane_password_field');
+    if( class_exists( 'WPCF7_TagGenerator' )) {
+        if( isset($_GET['post']) ) {
+            $post_id = absint($_GET['post']); // Always sanitize
+            $passwordfield = get_post_meta($post_id, "_cf7fr_passwordfield_registration", true); 
+            if ($passwordfield == "1") {
+                $tag_generator = WPCF7_TagGenerator::get_instance();
+                $tag_generator->add( 'password', __( 'Password*', 'contact-form-7-freg' ), 'wpcf7_tg_pane_password_field' );
+            }
+        }
     }   
 }
 /** Parameters field for generating tag at backend **/
@@ -182,6 +187,7 @@ function cf7fr_admin_reg_additional_settings( $cf7 )
     $passwordfield = get_post_meta($post_id, "_cf7fr_passwordfield_registration", true);
     $activationfield = get_post_meta($post_id, "_cf7fr_activationfield_reg", true);
     $autologinfield = get_post_meta($post_id, "_cf7fr_autologinfield_reg", true);
+    $redirectafterreg = get_post_meta($post_id, "_cf7fr_redirectafterreg_reg", true);
     $returnfieldarr = filterarray();
     $cf7fru = get_post_meta($post_id, "_cf7fru_", true);
     $cf7fre = get_post_meta($post_id, "_cf7fre_", true);
@@ -191,6 +197,7 @@ function cf7fr_admin_reg_additional_settings( $cf7 )
     }
     $cf7frr = get_post_meta($post_id, "_cf7frr_", true);
     $cf7frel = get_post_meta($post_id, "_cf7frel_", true);
+    $cf7rarg = get_option( "_cf7rarg_", true );
     $_cf7frfrom_ = get_post_meta($post_id, "_cf7frfrom_", true);
     $_cf7frsub_ = get_post_meta($post_id, "_cf7frsub_", true);
     $_cf7freb_ = get_post_meta($post_id, "_cf7freb_", true);
@@ -208,6 +215,7 @@ function cf7fr_admin_reg_additional_settings( $cf7 )
     if ($passwordfield == "1") { $passwordfield = "CHECKED"; } else { $passwordfield = ""; }
     if ($activationfield == "1") { $activationfield = "CHECKED"; } else { $activationfield = ""; }
     if ($autologinfield == "1") { $autologinfield = "CHECKED"; $activationfield = ""; } else { $autologinfield = ""; }
+    if ($redirectafterreg == "1") { $redirectafterreg = "CHECKED"; $activationfield = ""; } else { $redirectafterreg = ""; }
     $selected = "";
     $admin_cm_output = "";
     $pages = get_pages();
@@ -256,9 +264,21 @@ function cf7_save_reg_contact_form( $cf7 ) {
         } else {
             update_post_meta($post_id, "_cf7fr_autologinfield_reg", 0);
         }
+        if (isset($_POST['redirectafterreg'])) {
+            update_post_meta($post_id, "_cf7fr_redirectafterreg_reg", 1);
+        } else {
+            update_post_meta($post_id, "_cf7fr_redirectafterreg_reg", 0);
+        }
+        
         $key = "_cf7frel_";
         $vals = sanitize_text_field($_POST[$key]);
         update_post_meta($post_id, $key, $vals);
+
+        $key = "_cf7rarg_";
+        $vals = sanitize_text_field($_POST[$key]);
+        //update_post_meta($post_id, $key, $vals);
+        update_option( $key, $vals );
+
         $key = "_cf7fru_";
         $vals = sanitize_text_field($_POST[$key]);
         update_post_meta($post_id, $key, $vals);

@@ -27,6 +27,10 @@ echo "<div id='additionalsettings-registration' class='meta-box'><div id='additi
                     echo "<input name='autologinfield' value='' type='checkbox' $autologinfield>";
                 echo "<div class='state'><label>".esc_html( 'Enable auto login after registration? ( If you enable Auto Login activation link will disable automatically. )')."</label></div>";
                 echo "</div>";
+                echo "<div class='mail-field pretty p-switch p-fill'>";
+                    echo "<input name='redirectafterreg' value='' type='checkbox' $redirectafterreg>";
+                echo "<div class='state'><label>".esc_html( 'Enable custom redirect after registration?')."</label></div>";
+                echo "</div>";
                 echo "</div>";
             echo "<div class='other-settings'>";
                 echo "<h2 class='hndle ui-sortable-handle'>".esc_html( 'Form Field Settings:')."</h2>";
@@ -51,6 +55,9 @@ echo "<div id='additionalsettings-registration' class='meta-box'><div id='additi
                 }
                 echo "</select>";
                 echo "</td></tr>";
+                echo "<tr><td>".esc_html( 'Insert Custom Link Here for redirect after register :')."</td></tr>";
+                echo "<tr><td><input type='text' name='_cf7rarg_' value='$cf7rarg' size='50' /></td></tr>";
+                echo "<tr><td><h2>===============================================</h2></td></tr>";
                 echo "<tr><td><h2>".esc_html( 'Select Other User Fields values :')."</h2></td></tr>";
                 foreach ($returnfieldarr as $key => $value) {
                     echo "<tr class='border'><td>Selected Field Name For <strong>".$value."</strong>:";
@@ -64,7 +71,9 @@ echo "<div id='additionalsettings-registration' class='meta-box'><div id='additi
                     echo "</select>";
                     echo "</td></tr>";
                 }
+                echo "<tr><td>&nbsp;</td></tr>";
                 echo "<tr><td style='color:red;'><b>Note :</b> Above Field list are display from User Meta Table. If your custom Field not listed in above list then Just go in your admin Profile and Once Update Profile from Admin side. <a href='".get_site_url()."/wp-admin/profile.php'>Click Here and Update Profile.</a> For Custom field we must prefered Advance Custom Field Plugin (ACF Plugin).</td></tr>";
+                echo "<tr><td>&nbsp;</td></tr>";
                 echo "<tr><td>Selected User Role:</td></tr>";
                 echo "<tr><td>";
                 echo "<select name='_cf7frr_'>";
@@ -100,7 +109,7 @@ echo "<div id='additionalsettings-registration' class='meta-box'><div id='additi
                 }
                 echo "</select>";
                 echo "</td></tr>";
-                
+                echo "<tr><td><h2>===============================================</h2></td></tr>";
                 echo "<tr><td><h2>Email Settings :</h2></td></tr>";
                 echo "<tr><td>Use this shortcode for Mail content : [site-name] &nbsp; [login-link] &nbsp; [login-user] &nbsp; [login-user-name] &nbsp; [login-email] &nbsp; [login-password] &nbsp; [login-role] &nbsp; [activation-link]</td></tr>";
                 echo "<tr><td>Add Email From Here :</td></tr>";

@@ -17,7 +17,7 @@ function callback_frcf7_setting_up_scripts() {
 add_action( 'init', 'activate_au' );
 function activate_au()
 {
-    $plugin_current_version = '4.6.1';
+    $plugin_current_version = '4.8';
     $plugin_remote_path = 'http://www.wpbuilderweb.com/plugin/updates/cf7freg.php'; 
     $plugin_slug = FRCF7_PLUGIN_BASENAME;
     new WP_fra_AutoUpdate( $plugin_current_version, $plugin_remote_path, $plugin_slug );    

@@ -3,7 +3,7 @@
  * Plugin Name: Frontend Registration - Contact Form 7 Pro
  * Plugin URL: http://www.wpbuilderweb.com/frontend-registration-contact-form-7/
  * Description:  This plugin will convert your Contact form 7 in to registration form for WordPress. You can also use User meta field by created ACF plugin.
- * Version: 4.7
+ * Version: 4.8
  * Author: David Pokorny
  * Author URI: http://www.wpbuilderweb.com/
  * Developer: Pokorny David
@@ -24,7 +24,7 @@
 if ( ! defined( 'ABSPATH' ) ) { 
     exit; // Exit if accessed directly
 }
-define( 'FRCF7_VERSION', '4.7' );
+define( 'FRCF7_VERSION', '4.8' );
 
 define( 'FRCF7_PLUGIN', __FILE__ );
 
