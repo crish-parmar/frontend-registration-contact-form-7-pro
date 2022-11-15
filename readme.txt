@@ -3,12 +3,12 @@ Contributors: pokornydavid
 Tags: Contact Form 7, form, forms, contactform7, contact form, submit, Password, Contact Forms 7, Contact Form 7 + Registration,Contact Forms, contacted, contacts, integrate Frontend Registration with contact form 7,woocommerce, Change Contact Form 7 in Registration form , signup form
 Donate link: http://#/payment/
 Requires at least: 3.0.1
-Tested up to: 6.0.x
-Stable tag: 4.6.1
+Tested up to: 6.1.0
+Stable tag: 4.8
 License: GPLv3 or later License
 Contact Form 7 requires at least: 3.0
 Contact Form 7 tested up to: 5.6.x
-Version: 4.7
+Version: 4.8
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Contact Form 7 - Frontend Registration Form.
@@ -100,3 +100,6 @@ Bug Fix
 = 4.7 =
 Fix Sovled some issue while Registration
 Tested with latest WordPress and Contact Form 7
+
+= 4.8 =
+Update file for deperecated function
