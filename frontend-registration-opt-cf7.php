@@ -41,10 +41,12 @@ function create_user_from_registration($cfdata) {
     }
     $cf7frr = get_post_meta($post_id, "_cf7frr_", true);
     $cf7frel = get_post_meta($post_id, "_cf7frel_", true);
+    $cf7rarg = get_post_meta($post_id, "_cf7rarg_", true);
 
     $passwordfield = get_post_meta($post_id, "_cf7fr_passwordfield_registration", true);
     $activationfield = get_post_meta($post_id, "_cf7fr_activationfield_reg", true);
     $autologinfield = get_post_meta($post_id, "_cf7fr_autologinfield_reg", true);
+    $redirectafterreg = get_post_meta($post_id, "_cf7fr_redirectafterreg_reg", true);
     if ($autologinfield == "1") { $activationfield = ""; }
     $cf7frp = get_post_meta($post_id, "_cf7frp_", true);
 
@@ -100,7 +102,7 @@ function create_user_from_registration($cfdata) {
                 'role' => $cf7frr
             );
             $mergeuserdata = array_merge($dynamicarray,$userdata);
-            $user_id = wp_insert_user( $mergeuserdata );
+            $user_id = wp_insert_user( wp_slash ( $mergeuserdata ) );
             
             if($user_id)
             {
@@ -172,7 +174,7 @@ function your_validation_text_func( $result, $tag )
     global $wpcf7;
     $post_id = sanitize_text_field($_POST['_wpcf7']);
     $cf7fru = get_post_meta($post_id, "_cf7fru_", true);
-    $tag = new WPCF7_Shortcode( $tag );
+    $tag = new WPCF7_FormTag( $tag );
     $type = $tag->type;
     $name = $tag->name;
     global $wpdb;
@@ -196,33 +198,36 @@ add_filter( 'wpcf7_validate_text*', 'your_validation_text_func', 20, 2 );
 function your_validation_password_func( $result, $tag ) 
 {
     global $wpcf7;
-    $tag = new WPCF7_Shortcode( $tag );
+    $tag = new WPCF7_FormTag( $tag );
     $type = $tag->type;
     $name = $tag->name;
     $name2 = $tag->name."-2";
     //global $wpdb;
-    if(isset($_POST[''.$name.'']) && $_POST[''.$name.'']=="")
+    if( isset($_POST[''.$name.'']) && $_POST[''.$name.'']=="" )
     {
-       $result->invalidate($tag, "Please enter Password");
+       $result->invalidate($tag, __( 'Please enter Password', 'contact-form-7-freg' ));
     }
-    if(isset($_POST[''.$name2.'']) && $_POST[''.$name2.'']=="")
+    if( isset( $_POST[''.$name2.''] ) && $_POST[''.$name2.'']=="" )
     {
-       $result->invalidate($tag, "Please enter Confirm Password");
+       $result->invalidate($tag, __( 'Please enter Confirm Password', 'contact-form-7-freg' ));
     }
-    if($_POST[''.$name.'']!=$_POST[''.$name2.''])
+    if( $_POST[''.$name.''] != $_POST[''.$name2.''])
     {
-        $result->invalidate($tag, __( 'Password & Confirm Password do not match.', 'contact-form-7-freg' ));   
+       // $result->invalidate( $tag, __( 'Password & Confirm Password do not match.', 'contact-form-7-freg' )); 
+        $result['valid'] = false;
+        $result['reason'] = array( $name => sprintf( __( "Password & Confirm Password do not match.", 'contact-form-7-freg' ) ) ); 
     }
-   
+
     return $result;
  }
 add_filter( 'wpcf7_validate_password*', 'your_validation_password_func', 20, 2 );
+add_filter( 'wpcf7_validate_password', 'your_validation_password_func', 20, 2 );
 function your_validation_email_filter( $result, $tag ) 
 {
     global $wpcf7;
     $post_id = sanitize_text_field($_POST['_wpcf7']);
     $cf7fre = get_post_meta($post_id, "_cf7fre_", true);
-    $tag = new WPCF7_Shortcode( $tag );
+    $tag = new WPCF7_FormTag( $tag );
     $type = $tag->type;
     $name = $tag->name;
     global $wpdb;
@@ -353,7 +358,7 @@ function acf_get_field_key( $field_name ) {
 function cf7_footer_script(){ ?>
 <script>
 document.addEventListener( 'wpcf7mailsent', function( event ) {
-    location = '<?php echo get_home_url(); ?>';
+    location = '<?php echo $url = get_option( '_cf7rarg_' ) ? get_option( '_cf7rarg_' ) : get_home_url(); ?>';
 }, false );
 </script>
 <?php } 

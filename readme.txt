@@ -8,7 +8,7 @@ Stable tag: 4.6.1
 License: GPLv3 or later License
 Contact Form 7 requires at least: 3.0
 Contact Form 7 tested up to: 5.6.x
-Version: 4.6.1
+Version: 4.7
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Contact Form 7 - Frontend Registration Form.
@@ -96,3 +96,7 @@ Add New Feature of Auto Login and redirect on Home Page.
 
 = 4.6.1 =
 Bug Fix
+
+= 4.7 =
+Fix Sovled some issue while Registration
+Tested with latest WordPress and Contact Form 7
